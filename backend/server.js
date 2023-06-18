@@ -13,6 +13,7 @@ app.use((req, res, next) => { next() })
 
 // routes
 app.use('/api/workouts/', workoutsRoutes)
+app.use('/api/user/', usersRoutes)
 
 // connect to db
 mongoogse.connect(process.env.MONGO_URI)

@@ -1,5 +1,4 @@
 const express = require('express')
-
 // controller functions
 const {
     signupUser,
