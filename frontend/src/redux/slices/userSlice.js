@@ -10,14 +10,19 @@ export const userSlice = createSlice({
             state.user = action.payload;
         },
         logout: (state, action) => {
+            //remove user from storage
+            localStorage.removeItem('user')
+
             state.user = null;
+            console.log('user logged out')
         }
     }
 })
 
 // Action creators are generated for each case reducer function
 export const {
-    login
+    login,
+    logout
 } = userSlice.actions;
 
 export default userSlice.reducer
