@@ -10,18 +10,18 @@ const userSchema = new Schema({
 }, { timestamps: true })
 
 // static signup method
-userSchema.statics.signup = async function(email, password) {
+userSchema.statics.signup = async function (email, password) {
 
     // validation
     if (!email || !password) {
         throw Error('Please fill all requirements')
     }
 
-    if(!validator.isEmail(email)) {
+    if (!validator.isEmail(email)) {
         throw Error('Please enter valid email')
     }
 
-    if(!validator.isStrongPassword(password)) {
+    if (!validator.isStrongPassword(password)) {
         throw Error('Please enter strong password')
     }
 
@@ -36,6 +36,29 @@ userSchema.statics.signup = async function(email, password) {
     const hash = await bcrypt.hash(password, salt)
 
     const user = await this.create({ email, password: hash })
+
+    return user
+}
+
+// static login method
+userSchema.statics.login = async function (email, password) {
+
+    // validation
+    if (!email || !password) {
+        throw Error('Please fill all requirements')
+    }
+
+    const user = await this.findOne({ email })
+
+    if (!user) {
+        throw Error('Invalid Credentials')
+    }
+    
+    const match = await bcrypt.compare(password, user.password)
+
+    if(!match) {
+        throw Error('Invalid Credentials')
+    }
 
     return user
 }
