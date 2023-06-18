@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/userSlice'
 
@@ -52,7 +52,7 @@ const Signup = () => {
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
 
             {!isLoading && <button>Sign up</button>}
-            {isLoading && <button disabled style={{ backgroundColor: '#1aac83a4' }}>Signing up</button>}
+            {isLoading && <button disabled style={{ backgroundColor: '#1aac83a4' }}>Signing up...</button>}
             {error && <div className='error'>{error}</div>}
         </form>
     );
