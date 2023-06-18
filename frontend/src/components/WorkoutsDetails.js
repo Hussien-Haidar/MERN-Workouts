@@ -24,7 +24,7 @@ const WorkoutDetails = ({ workout }) => {
         if (response.ok) {
             setDeleting(false);
             setError(null)
-            console.log('workout deleted:')
+            console.log('workout deleted')
         }
     }
 
