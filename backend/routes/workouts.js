@@ -1,6 +1,6 @@
 const express = require('express')
+const requireAuth = require('../middlewares/requireAuth')
 
-const router = express.Router()
 const {
     getWorkouts,
     getWorkout,
@@ -8,6 +8,11 @@ const {
     deleteWorkout,
     updateWorkout
 } = require('../controllers/workoutController');
+
+const router = express.Router()
+
+// use method will run first, if authorization verified it will continue to the wanted request
+router.use(requireAuth)
 
 // GET all workouts
 router.get('/', getWorkouts)
