@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/userSlice'
+import { setWorkouts } from '../redux/slices/workoutSlice'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -37,6 +38,7 @@ const Login = () => {
 
             // save/dispatch the auth to the store
             dispatch(login(json))
+            dispatch(setWorkouts(null))
         }
     }
 

@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 
 // get all workouts
 const getWorkouts = async (req, res) => {
-    const workouts = await Workout.find({}).sort({ createAt: -1 })
+    const user_id = req.user._id
 
+    const workouts = await Workout.find({ user_id }).sort({ createAt: -1 });
     try {
         res.status(200).json(workouts);
     } catch (error) {
@@ -36,7 +37,9 @@ const createWorkout = async (req, res) => {
 
     // add doc to db
     try {
-        const workout = await Workout.create({ title, load, reps })
+        //req.user is stored while coding in the backend folder in the requireAuth.js
+        const user_id = req.user._id
+        const workout = await Workout.create({ title, load, reps, user_id })
         res.status(200).json(workout)
     } catch (error) {
         res.status(400).json({ error: error.message })

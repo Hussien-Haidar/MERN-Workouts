@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux';
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -6,13 +7,23 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const WorkoutDetails = ({ workout }) => {
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState(null);
+    const { user } = useSelector(state => state.user)
 
     const handleClick = async (e) => {
         e.preventDefault();
         setDeleting(true);
 
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
         const response = await fetch('/api/workouts/' + workout._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${user.token}`
+            }
         })
         const json = await response.json()
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux';
 
 const WorkoutForm = () => {
     const [title, setTitle] = useState('');
@@ -6,17 +7,24 @@ const WorkoutForm = () => {
     const [reps, setReps] = useState('');
     const [posting, setPosting] = useState(false);
     const [error, setError] = useState(null);
+    const { user } = useSelector(state => state.user)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setPosting(true);
-        const workout = { title, load, reps }
 
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
+        const workout = { title, load, reps }
         const response = await fetch('/api/workouts', {
             method: 'POST',
             body: JSON.stringify(workout),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()
