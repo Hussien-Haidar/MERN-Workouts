@@ -3,7 +3,7 @@ import { logout } from '../redux/slices/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 const Navbar = () => {
-    const {user} = useSelector(state => state.user)
+    const { user } = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     const handleClick = () => {
