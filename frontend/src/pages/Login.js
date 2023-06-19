@@ -31,7 +31,6 @@ const Login = () => {
         if (response.ok) {
             setIsLoading(false)
             setError(null)
-            console.log('Login successfull')
 
             //save the user to local storage
             localStorage.setItem('user', JSON.stringify({ json }))

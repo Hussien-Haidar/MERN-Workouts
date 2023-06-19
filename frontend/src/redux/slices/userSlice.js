@@ -3,11 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: localStorage.getItem('user'),
+        user: JSON.parse(localStorage.getItem('user')).json,
     },
     reducers: {
         login: (state, action) => {
             state.user = action.payload;
+            
+            console.log('Login successfull')
+            console.log('redirecting...')
         },
         logout: (state, action) => {
             //remove user from storage
